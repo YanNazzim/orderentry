@@ -1,38 +1,389 @@
-.App {
-  text-align: center;
+/*
+  This stylesheet contains all the new styles for a modern,
+  visually appealing user interface.
+*/
+
+:root {
+  --primary-color: #264653; /* A deep, professional blue */
+  --secondary-color: #2a9d8f; /* A refreshing accent green */
+  --text-color-light: #e9ecef;
+  --text-color-dark: #343a40;
+  --bg-light: #f8f9fa;
+  --bg-dark: #1f2937;
+  --card-bg-light: #ffffff;
+  --card-bg-dark: #2d3748;
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-light);
+  color: var(--text-color-dark);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Dark Mode */
+.dark-mode {
+  background-color: var(--bg-dark);
+  color: var(--text-color-light);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.dark-mode .main-card,
+.dark-mode .info-card {
+  background-color: var(--card-bg-dark);
+  border-color: #4b5563;
+}
+
+.dark-mode .analyze-button {
+  background-color: var(--secondary-color);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.dark-mode .analyze-button:hover:not(:disabled) {
+  background-color: #218376;
 }
 
-@keyframes App-logo-spin {
+.dark-mode .file-input {
+  color: var(--text-color-light);
+}
+
+.dark-mode .line-item-table th,
+.dark-mode .line-item-table td {
+  border-color: #4b5563;
+}
+
+.dark-mode .line-item-table tbody tr:nth-child(odd) {
+  background-color: #374151;
+}
+
+.dark-mode .line-item-table tbody tr:nth-child(even) {
+  background-color: #2d3748;
+}
+
+.dark-mode .message.error-message {
+  background-color: #450a0a;
+  color: #fca5a5;
+}
+
+/* Main Layout */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+.main-card {
+  width: 100%;
+  max-width: 900px;
+  background-color: var(--card-bg-light);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 3rem 2rem;
+  transition: all 0.3s ease;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.logo-text {
+  font-weight: 900;
+  color: var(--secondary-color);
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin-bottom: 2rem;
+}
+
+.file-input-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.file-input {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px dashed #ced4da;
+  border-radius: 8px;
+  background-color: #f1f3f5;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.file-input:hover {
+  border-color: var(--secondary-color);
+  background-color: #e9ecef;
+}
+
+.analyze-button {
+  width: 100%;
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.analyze-button:hover:not(:disabled) {
+  background-color: #1a303a;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.analyze-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Loading Spinner styles */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Messages */
+.message {
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+  margin-top: 2rem;
+}
+
+.error-message {
+  background-color: #fcebeb;
+  color: #b70000;
+}
+
+/* Results Section */
+.results-section {
+  margin-top: 2rem;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.results-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.info-card {
+  padding: 1.5rem;
+  background-color: #f1f3f5;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.card-title + p {
+  margin-top: 0;
+}
+
+.info-card p {
+  margin: 0.5rem 0;
+}
+
+.line-items-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.line-item-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.line-item-table th,
+.line-item-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.line-item-table th {
+  background-color: #e9ecef;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #495057;
+}
+
+.line-item-table tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.line-item-table tbody tr:nth-child(even) {
+  background-color: #f1f3f5;
+}
+
+.line-item-table td:last-child {
+  white-space: nowrap;
+}
+
+.no-items {
+  text-align: center;
+  font-style: italic;
+  color: #888;
+}
+
+@media (max-width: 600px) {
+  .main-card {
+    padding: 2rem 1rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+}
+
+/* Add these new styles to your existing src/App.css file */
+
+.tool-switcher {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 0.5rem;
+  background-color: var(--text-color-light);
+  border-radius: 9999px;
+  box-shadow: var(--shadow);
+  border: 1px solid #dee2e6;
+}
+
+.tool-switcher button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--primary-color);
+  transition: all 0.3s ease;
+}
+
+.tool-switcher button.active {
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Modify existing app-container for better layout */
+.app-container {
+  display: flex;
+  flex-direction: column; /* This is important! */
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+/* New additions for animation and copy button */
+@keyframes fadeIn {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.line-item-row:hover {
+  background-color: #f9f9f9 !important; /* Use !important to override zebra striping */
+  transition: background-color 0.3s ease;
+}
+
+.dark-mode .line-item-row:hover {
+  background-color: #3e4b5d !important;
+}
+
+.copy-button {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.copy-button:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.dark-mode .copy-button {
+  color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+.dark-mode .copy-button:hover {
+  background-color: var(--secondary-color);
+  color: var(--bg-dark);
 }
