@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 
 const API_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent";
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 const API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 
 const fetchWithBackoff = async (payload, maxAttempts = 5) => {
@@ -189,7 +189,8 @@ const App = () => {
           />
           <button
             onClick={extractData}
-            disabled={loading || !file || !API_KEY}
+            // MODIFIED: Removed !API_KEY from disabled condition
+            disabled={loading || !file}
             className="analyze-button"
           >
             {loading ? <Spinner /> : "Analyze PO"}
