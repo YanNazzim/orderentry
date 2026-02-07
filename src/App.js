@@ -342,7 +342,8 @@ const App = () => {
             <span className="badge">v2.4.0</span>
           </div>
           <div className="decision-tree">
-            {routingLog.length === 0 && <p className="placeholder">// WAITING FOR DATA STREAM...</p>}
+            {/* FIX: Wrapped string in curly braces to fix JSX error */}
+            {routingLog.length === 0 && <p className="placeholder">{'// WAITING FOR DATA STREAM...'}</p>}
             {routingLog.map((log, i) => (
               <div key={i} className="log-step fade-in" style={{animationDelay: `${i * 0.1}s`}}>
                 <div className="step-marker"></div>
